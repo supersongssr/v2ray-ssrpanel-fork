@@ -23,13 +23,13 @@ you may want to see docs, all the things as same as the official docs except ins
 [V2ray installation](https://www.v2ray.com/en/welcome/install.html)
 
 ```
-curl -L -s https://raw.githubusercontent.com/ColetteContreras/v2ray-ssrpanel-plugin/master/install-release.sh | sudo bash
+curl -L -s https://raw.githubusercontent.com/demonstan/v2ray-ssrpanel/master/install-release.sh | sudo bash
 ```
 
 #### Uninstall
 
 ```
-curl -L -s https://raw.githubusercontent.com/ColetteContreras/v2ray-ssrpanel-plugin/master/uninstall.sh | sudo bash
+curl -L -s https://raw.githubusercontent.com/demonstan/v2ray-ssrpanel/master/uninstall.sh | sudo bash
 ```
 
 ### V2ray Configuration demo
@@ -117,10 +117,10 @@ curl -L -s https://raw.githubusercontent.com/ColetteContreras/v2ray-ssrpanel-plu
 
 ### Contributing
 
-Read [WiKi](https://github.com/ColetteContreras/v2ray-ssrpanel-plugin/wiki) carefully before submitting issues.
+Read [WiKi](https://github.com/demonstan/v2ray-ssrpanel/wiki) carefully before submitting issues.
 
-- Test and [report bugs](https://github.com/ColetteContreras/v2ray-ssrpanel-plugin/issues)
-- Share your needs/experiences in [github issues](https://github.com/ColetteContreras/v2ray-ssrpanel-plugin/issues)
+- Test and [report bugs](https://github.com/demonstan/v2ray-ssrpanel/issues)
+- Share your needs/experiences in [github issues](https://github.com/demonstan/v2ray-ssrpanel/issues)
 - Enhance documentation
 - Contribute code by sending PR
 
