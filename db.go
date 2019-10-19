@@ -8,7 +8,7 @@ import (
 type UserModel struct {
 	ID      uint
 	VmessID string `gorm:"column:v2ray_uuid"`
-	Email   string `gorm:"column:user_name"`
+	Email   string `gorm:"column:email"`
 }
 
 func (*UserModel) TableName() string {
@@ -79,7 +79,7 @@ type DB struct {
 
 func (db *DB) GetAllUsers() ([]UserModel, error) {
 	users := make([]UserModel, 0)
-	db.DB.Select("id, v2ray_uuid, user_name").Where("enable = 1 AND u + d < transfer_enable AND plan != 'A'").Find(&users)
+	db.DB.Select("id, v2ray_uuid, email").Where("enable = 1 AND u + d < transfer_enable AND plan != 'A'").Find(&users)
 	return users, nil
 }
 

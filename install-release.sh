@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# A copy of official file: github.com/v2ray/v2ray-core/blob/master/release/install-release.sh
-# Original source is located at github.com/demonstan/v2ray-ssrpanel/blob/master/install-release.sh
+# This file is accessible as https://install.direct/go.sh
+# Original source is located at github.com/demonstan/v2ray-ssrpanel/release/install-release.sh
 
 # If not specify, default meaning of return value:
 # 0: Success
@@ -18,6 +18,7 @@ V2RAY_RUNNING=0
 VSRC_ROOT="/tmp/v2ray"
 EXTRACT_ONLY=0
 ERROR_IF_UPTODATE=0
+DIST_SRC="github"
 
 CMD_INSTALL=""
 CMD_UPDATE=""
@@ -73,6 +74,10 @@ while [[ $# > 0 ]];do
         LOCAL_INSTALL="1"
         shift
         ;;
+        --source)
+        DIST_SRC="$2"
+        shift
+        ;;
         --errifuptodate)
         ERROR_IF_UPTODATE="1"
         ;;
@@ -118,8 +123,12 @@ sysArch(){
 downloadV2Ray(){
     rm -rf /tmp/v2ray
     mkdir -p /tmp/v2ray
-    colorEcho ${BLUE} "Downloading V2Ray."
-    DOWNLOAD_LINK="https://github.com/demonstan/v2ray-ssrpanel/releases/download/${NEW_VER}/v2ray-linux-${VDIS}.zip"
+    if [[ "${DIST_SRC}" == "jsdelivr" ]]; then
+        DOWNLOAD_LINK="https://cdn.jsdelivr.net/gh/v2ray/dist/v2ray-linux-${VDIS}.zip"
+    else
+        DOWNLOAD_LINK="https://github.com/demonstan/v2ray-ssrpanel/releases/download/${NEW_VER}/v2ray-linux-${VDIS}.zip"
+    fi
+    colorEcho ${BLUE} "Downloading V2Ray: ${DOWNLOAD_LINK}"
     curl ${PROXY} -L -H "Cache-Control: no-cache" -o ${ZIPFILE} ${DOWNLOAD_LINK}
     if [ $? != 0 ];then
         colorEcho ${RED} "Failed to download! Please check your network or try again."
@@ -202,7 +211,7 @@ getVersion(){
             CUR_VER=v${CUR_VER}
         fi
         TAG_URL="https://api.github.com/repos/demonstan/v2ray-ssrpanel/releases/latest"
-        NEW_VER=`curl ${PROXY} -s ${TAG_URL} --connect-timeout 10| grep 'tag_name' | head -1 | cut -d\" -f4`
+        NEW_VER=`curl ${PROXY} -s ${TAG_URL} --connect-timeout 10| grep 'tag_name' | cut -d\" -f4`
         if [[ ${NEW_VER} != v* ]]; then
           NEW_VER=v${NEW_VER}
         fi
@@ -211,7 +220,7 @@ getVersion(){
             return 3
         elif [[ $RETVAL -ne 0 ]];then
             return 2
-        elif [[ `echo $NEW_VER | cut -d. -f-2` != `echo $CUR_VER | cut -d. -f-2` ]];then
+        elif [[ $NEW_VER != $CUR_VER ]];then
             return 1
         fi
         return 0
@@ -421,7 +430,7 @@ main(){
         getVersion
         RETVAL="$?"
         if [[ $RETVAL == 0 ]] && [[ "$FORCE" != "1" ]]; then
-            colorEcho ${BLUE} "Latest version ${NEW_VER} is already installed."
+            colorEcho ${BLUE} "Latest version ${CUR_VER} is already installed."
             if [[ "${ERROR_IF_UPTODATE}" == "1" ]]; then
               return 10
             fi
