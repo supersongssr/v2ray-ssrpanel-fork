@@ -7,8 +7,8 @@ import (
 
 type UserModel struct {
 	ID      uint
-	VmessID string
-	Email   string `gorm:"column:username"`
+	VmessID string `gorm:"column:v2ray_uuid"`
+	Email   string `gorm:"column:user_name"`
 }
 
 func (*UserModel) TableName() string {
@@ -56,7 +56,7 @@ type NodeInfo struct {
 }
 
 func (*NodeInfo) TableName() string {
-	return "ss_node_info"
+	return "ss_node_info_log"
 }
 
 func (l *NodeInfo) BeforeCreate(scope *gorm.Scope) error {
@@ -79,7 +79,7 @@ type DB struct {
 
 func (db *DB) GetAllUsers() ([]UserModel, error) {
 	users := make([]UserModel, 0)
-	db.DB.Select("id, vmess_id, username").Where("enable = 1 AND u + d < transfer_enable").Find(&users)
+	db.DB.Select("id, v2ray_uuid, user_name").Where("enable = 1 AND u + d < transfer_enable AND plan != 'A'").Find(&users)
 	return users, nil
 }
 
