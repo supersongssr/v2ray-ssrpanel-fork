@@ -79,7 +79,7 @@ type DB struct {
 
 func (db *DB) GetAllUsers() ([]UserModel, error) {
 	users := make([]UserModel, 0)
-	db.DB.Select("id, v2ray_uuid, email").Where("enable = 1 AND u + d < transfer_enable AND plan != 'A'").Find(&users)
+	db.DB.Select("id, v2ray_uuid, email").Where("enable = 1 AND u + d < transfer_enable").Find(&users)
 	return users, nil
 }
 
