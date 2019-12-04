@@ -77,9 +77,9 @@ type DB struct {
 	DB *gorm.DB
 }
 
-func (db *DB) GetAllUsers() ([]UserModel, error) {
+func (db *DB) GetAllUsers(nodeClass string) ([]UserModel, error) {
 	users := make([]UserModel, 0)
-	db.DB.Select("id, v2ray_uuid, email").Where("enable = 1 AND u + d < transfer_enable AND plan != 'A'").Find(&users)
+	db.DB.Select("id, v2ray_uuid, email").Where("enable = 1 AND u + d < transfer_enable AND plan >= ?", nodeClass).Find(&users)
 	return users, nil
 }
 

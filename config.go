@@ -60,6 +60,7 @@ type Config struct {
 	MySQL              *MySQLConfig `json:"mysql"`
 	UserConfig         *UserConfig  `json:"user"`
 	IgnoreEmptyVmessID bool         `json:"ignoreEmptyVmessID"`
+	NodeClass 		   string       `json:"NodeClass"`
 	v2rayConfig        *conf.Config
 }
 
