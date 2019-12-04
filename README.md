@@ -92,6 +92,8 @@ curl -L -s https://raw.githubusercontent.com/demonstan/v2ray-ssrpanel/master/uni
     "checkRate": 60,
     // change this to true if you want to ignore users which has an empty vmess_id
     "ignoreEmptyVmessID": false,
+    // select users whose plan >= nodeClass
+    "nodeClass": "A",
     // user config
     "user": {
       // inbound tag, which inbound you would like add user to
