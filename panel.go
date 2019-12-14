@@ -73,7 +73,8 @@ func (p *Panel) do() error {
 	if err != nil {
 		return err
 	}
-	onlineUsers = len(userTrafficLogs)
+	// onlineUsers = len(userTrafficLogs)
+	onlineUsers = 0
 
 	var uVals, dVals string
 	var userIDs []uint
@@ -82,10 +83,14 @@ func (p *Panel) do() error {
 		uplink := p.mulTrafficRate(log.Uplink)
 		downlink := p.mulTrafficRate(log.Downlink)
 
+		if log.Uplink+log.Downlink > 2048 {
+			onlineUsers += 1
+		}
+
 		uplinkTotal += log.Uplink
 		downlinkTotal += log.Downlink
 
-		log.Traffic = bytefmt.ByteSize(uplink+downlink)
+		log.Traffic = bytefmt.ByteSize(uplink + downlink)
 		p.db.DB.Create(&log)
 
 		userIDs = append(userIDs, log.UserID)
